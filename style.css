@@ -3,7 +3,7 @@ body{
     width: 700px;
     margin: auto;
     padding: 20px;
-    background-color: #c57f30;
+    background-color:rgb(165, 151, 23);
 }
 
 h1{
@@ -32,7 +32,7 @@ button:hover{
     opacity: 0.8;
 }
 .card{
-    background-color: white;
+    background-color: rgb(165, 115, 23);
     padding: 15px;
     margin-top: 20px;
     border-radius: 10px;
