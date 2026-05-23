@@ -37,7 +37,9 @@ include 'db.php';
     echo "<small>" . $row['data_created'] . "</small>";
     echo "<p>" . $row['content'] . "</p>";
     echo "<a href='edit.php?id=" . $row['id'] . "'>Edit</a> ";
-    echo "<a href='delete.php?id=" . $row['id'] . "'>Delete</a>";
+    echo "<a href='delete.php?id=" . $row['id'] . "'
+    onclick='return confirm(\"Are you sure?\")'>
+    Delete</a>";
     echo "</div>";
   }
 
