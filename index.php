@@ -1,11 +1,12 @@
 <?php
 session_start();
-$user_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['username'])) {
 
   header("Location: login.php");
+  exit();
 }
-
+$user_id = $_SESSION['user_id'];
 include 'db.php';
 
 ?>

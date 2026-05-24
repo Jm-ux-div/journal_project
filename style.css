@@ -116,3 +116,36 @@ body.dark-mode p{
 body.dark-mode hr{
     border: 1px solid #444;
 }
+@media screen and (max-width: 768px){
+
+    .container{
+        width: 95%;
+    }
+
+    form{
+        padding: 15px;
+    }
+
+    .card{
+        padding: 15px;
+    }
+
+    input,
+    textarea,
+    button{
+        font-size: 14px;
+    }
+
+    button{
+        padding: 10px;
+    }
+
+    h1{
+        font-size: 26px;
+    }
+
+    textarea{
+        height: 120px;
+    }
+
+}
