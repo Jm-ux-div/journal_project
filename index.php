@@ -23,8 +23,48 @@ include 'db.php';
 <body>
   <div class="container">
     <h1>My Daily Journal</h1>
+    <?php
+
+    $user_id = $_SESSION['user_id'];
+
+    $getUser = mysqli_query(
+      $conn,
+      "SELECT * FROM users WHERE id='$user_id'"
+    );
+
+    $user = mysqli_fetch_assoc($getUser);
+
+    ?>
+    <?php
+
+    if ($user['profile_pic']) {
+
+      echo "<img src='" . $user['profile_pic'] . "'
+    width='100'
+    height='100'
+    style='border-radius:50%; object-fit:cover;'>";
+    }
+
+    ?>
+
     <p>Welcome,
       <?php echo $_SESSION['username']; ?>!</p>
+    <form action="upload.php"
+      method="POST"
+      enctype="multipart/form-data">
+
+      <input type="file"
+        name="profile_pic"
+        required>
+
+      <button type="submit"
+        name="upload">
+
+        Upload Profile Picture
+
+      </button>
+
+    </form>
 
     <a href="logout.php">
       <button>Logout</button>
