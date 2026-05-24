@@ -1,5 +1,13 @@
 <?php
+session_start();
+$user_id = $_SESSION['user_id'];
+if (!isset($_SESSION['username'])) {
+
+  header("Location: login.php");
+}
+
 include 'db.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +22,12 @@ include 'db.php';
 <body>
   <div class="container">
     <h1>My Daily Journal</h1>
+    <p>Welcome,
+      <?php echo $_SESSION['username']; ?>!</p>
+
+    <a href="logout.php">
+      <button>Logout</button>
+    </a>
     <button onclick="toggleDarkMode()" id="darkBtn">
       Dark Mode
     </button>
@@ -43,13 +57,17 @@ include 'db.php';
       $search = $_GET['search'];
 
       $query = "SELECT * FROM journals
-  WHERE title LIKE '%$search%'
-  OR content LIKE '%$search%'
-  ORDER BY data_created DESC";
+WHERE user_id='$user_id'
+AND (
+title LIKE '%$search%'
+OR content LIKE '%$search%'
+)
+ORDER BY data_created DESC";
     } else {
 
       $query = "SELECT * FROM journals
-  ORDER BY data_created DESC";
+WHERE user_id='$user_id'
+ORDER BY data_created DESC";
     }
 
     $result = mysqli_query($conn, $query);
