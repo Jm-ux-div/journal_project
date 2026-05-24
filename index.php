@@ -14,6 +14,9 @@ include 'db.php';
 <body>
   <div class="container">
     <h1>My Daily Journal</h1>
+    <button onclick="toggleDarkMode()" id="darkBtn">
+      Dark Mode
+    </button>
     <form action="save.php" method="POST">
       <input type="text" name="title" placeholder="Title" required>
       <textarea name="content" placeholder="Write your journal entry here..." required></textarea>
@@ -66,6 +69,13 @@ include 'db.php';
 
     ?>
   </div>
+  <script>
+    function toggleDarkMode() {
+
+      document.body.classList.toggle("dark-mode");
+
+    }
+  </script>
 </body>
 
 </html>
