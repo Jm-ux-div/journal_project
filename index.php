@@ -76,6 +76,7 @@ include 'db.php';
       <input type="text" name="title" placeholder="Title" required>
       <textarea name="content" placeholder="Write your journal entry here..." required></textarea>
       <input type="date" name="date_created" required>
+      <input type="file" name="image">
       <button type="submit">Save Entry</button>
 
     </form>
@@ -119,6 +120,13 @@ ORDER BY data_created DESC";
       echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
       echo "<small>" . $row['data_created'] . "</small>";
       echo "<p>" . htmlspecialchars($row['content']) . "</p>";
+      if ($row['image']) {
+
+        echo "<img src='" . $row['image'] . "'
+    width='100%'
+    style='margin-top:10px;
+    border-radius:10px;'>";
+      }
       echo "<a href='edit.php?id=" . $row['id'] . "'>Edit</a> ";
       echo "<a href='delete.php?id=" . $row['id'] . "'
     onclick='return confirm(\"Are you sure?\")'>
