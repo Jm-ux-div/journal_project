@@ -22,57 +22,74 @@ include 'db.php';
 
 <body>
   <div class="container">
-    <h1>My Daily Journal</h1>
-    <?php
+    <div class="top-bar">
 
-    $user_id = $_SESSION['user_id'];
+      <?php
 
-    $getUser = mysqli_query(
-      $conn,
-      "SELECT * FROM users WHERE id='$user_id'"
-    );
+      $getUser = mysqli_query(
+        $conn,
+        "SELECT * FROM users WHERE id='$user_id'"
+      );
 
-    $user = mysqli_fetch_assoc($getUser);
+      $user = mysqli_fetch_assoc($getUser);
 
-    ?>
-    <?php
+      ?>
 
-    if ($user['profile_pic']) {
+      <?php
 
-      echo "<img src='" . $user['profile_pic'] . "'
-    width='100'
-    height='100'
-    style='border-radius:50%; object-fit:cover;'>";
-    }
+      if ($user['profile_pic']) {
 
-    ?>
+        echo "<img src='" . $user['profile_pic'] . "'>";
+      }
 
-    <p>Welcome,
-      <?php echo $_SESSION['username']; ?>!</p>
-    <form action="upload.php"
+      ?>
+
+      <h1>My Daily Journal</h1>
+
+      <p>
+        Welcome,
+        <?php echo $_SESSION['username']; ?>!
+      </p>
+
+      <form action="upload.php"
+        method="POST"
+        enctype="multipart/form-data">
+
+        <input type="file"
+          name="profile_pic"
+          required>
+
+        <button type="submit"
+          name="upload">
+
+          Upload Profile
+
+        </button>
+
+      </form>
+
+      <div class="button-group">
+
+        <a href="logout.php">
+          <button type="button">
+            Logout
+          </button>
+        </a>
+
+        <button
+          onclick="toggleDarkMode()"
+          type="button">
+
+          Dark Mode
+
+        </button>
+
+      </div>
+
+    </div>
+    <form action="save.php"
       method="POST"
       enctype="multipart/form-data">
-
-      <input type="file"
-        name="profile_pic"
-        required>
-
-      <button type="submit"
-        name="upload">
-
-        Upload Profile Picture
-
-      </button>
-
-    </form>
-
-    <a href="logout.php">
-      <button>Logout</button>
-    </a>
-    <button onclick="toggleDarkMode()" id="darkBtn">
-      Dark Mode
-    </button>
-    <form action="save.php" method="POST">
       <input type="text" name="title" placeholder="Title" required>
       <textarea name="content" placeholder="Write your journal entry here..." required></textarea>
       <input type="date" name="date_created" required>
@@ -80,7 +97,7 @@ include 'db.php';
       <button type="submit">Save Entry</button>
 
     </form>
-    <hr>
+
     <form method="GET">
 
       <input type="text" name="search"
@@ -127,10 +144,18 @@ ORDER BY data_created DESC";
     style='margin-top:10px;
     border-radius:10px;'>";
       }
-      echo "<a href='edit.php?id=" . $row['id'] . "'>Edit</a> ";
+      echo "<div class='card-actions'>";
+
+      echo "<a href='edit.php?id=" . $row['id'] . "'>
+✏️ Edit
+</a>";
+
       echo "<a href='delete.php?id=" . $row['id'] . "'
-    onclick='return confirm(\"Are you sure?\")'>
-    Delete</a>";
+onclick='return confirm(\"Are you sure?\")'>
+🗑 Delete
+</a>";
+
+      echo "</div>";
       echo "</div>";
     }
 
