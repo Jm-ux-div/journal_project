@@ -15,8 +15,8 @@ move_uploaded_file($tmp_name, $image_path);
 $user_id = $_SESSION['user_id'];
 
 $sql = "INSERT INTO journals(title, content, image, data_created, user_id)
-VALUES('$title', '$content', '$date', '$image_path', '$user_id')";
+VALUES('$title', '$content', '$image_path', '$date', '$user_id')";
 
 mysqli_query($conn, $sql);
 
-header("Location: index.php");
+header("Location: index.php?success=saved");

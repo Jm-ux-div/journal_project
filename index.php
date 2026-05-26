@@ -21,6 +21,7 @@ include 'db.php';
 </head>
 
 <body>
+  <div id="toast"></div>
   <div class="container">
     <div class="top-bar">
 
@@ -144,17 +145,49 @@ ORDER BY data_created DESC";
     style='margin-top:10px;
     border-radius:10px;'>";
       }
+      if ($row['favorite'] == 1) {
+        echo "<p>⭐ Favorite Journal</p>";
+      }
       echo "<div class='card-actions'>";
 
-      echo "<a href='edit.php?id=" . $row['id'] . "'>
-✏️ Edit
-</a>";
+      echo "<a href='edit.php?id=" . $row['id'] . "'>✏️ Edit</a>";
 
-      echo "<a href='delete.php?id=" . $row['id'] . "'
-onclick='return confirm(\"Are you sure?\")'>
-🗑 Delete
-</a>";
+      echo "<a href='delete.php?id=" . $row['id'] . "' onclick='return confirm(\"Are you sure?\")'>🗑 Delete</a>";
 
+      $favoriteClass = $row['favorite'] == 1 ? "favorite-active" : "";
+
+      echo "<a class='$favoriteClass' href='favorite.php?id="
+        . $row['id'] .
+        "&favorite="
+        . $row['favorite'] .
+        "'>";
+
+      if ($row['favorite'] == 1) {
+
+        echo "💔 Remove Favorite";
+      } else {
+
+        echo "❤️ Favorite";
+      }
+
+      echo "</a>";
+      $pinnedClass = $row['pinned'] == 1 ? "pinned-active" : "";
+
+      echo "<a class='$pinnedClass' href='pin.php?id="
+        . $row['id'] .
+        "&pinned="
+        . $row['pinned'] .
+        "'>";
+
+      if ($row['pinned'] == 1) {
+
+        echo "📌 Unpin";
+      } else {
+
+        echo "📍 Pin";
+      }
+
+      echo "</a>";
       echo "</div>";
       echo "</div>";
     }
@@ -167,6 +200,34 @@ onclick='return confirm(\"Are you sure?\")'>
       document.body.classList.toggle("dark-mode");
 
     }
+
+    function showToast(message) {
+
+      let toast = document.getElementById("toast");
+
+      toast.innerText = message;
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 3000);
+
+    }
+
+    <?php
+
+    if (isset($_GET['success'])) {
+
+      if ($_GET['success'] == "saved") {
+
+        echo "showToast('✅ Journal Saved Successfully!');";
+      }
+    }
+
+    ?>
   </script>
 </body>
 
