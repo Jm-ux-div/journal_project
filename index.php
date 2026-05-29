@@ -24,6 +24,43 @@ include 'db.php';
   <div id="toast"></div>
   <div class="container">
     <div class="top-bar">
+      <?php
+
+      $totalQuery = mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total FROM journals WHERE user_id='$user_id'"
+      );
+
+      $totalJournals = mysqli_fetch_assoc($totalQuery)['total'];
+
+      $favQuery = mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total FROM journals 
+    WHERE user_id='$user_id' 
+    AND favorite=1"
+      );
+
+      $totalFavorites = mysqli_fetch_assoc($favQuery)['total'];
+
+      $pinQuery = mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total FROM journals 
+    WHERE user_id='$user_id' 
+    AND pinned=1"
+      );
+
+      $totalPinned = mysqli_fetch_assoc($pinQuery)['total'];
+
+      $imageQuery = mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total FROM journals 
+    WHERE user_id='$user_id' 
+    AND image != ''"
+      );
+
+      $totalImages = mysqli_fetch_assoc($imageQuery)['total'];
+
+      ?>
 
       <?php
 
@@ -85,6 +122,33 @@ include 'db.php';
 
         </button>
 
+      </div>
+
+    </div>
+    <div class="stats">
+
+      <div class="stat-card">
+        <h3>📝</h3>
+        <p><?php echo $totalJournals; ?></p>
+        <small>Journals</small>
+      </div>
+
+      <div class="stat-card">
+        <h3>⭐</h3>
+        <p><?php echo $totalFavorites; ?></p>
+        <small>Favorites</small>
+      </div>
+
+      <div class="stat-card">
+        <h3>📌</h3>
+        <p><?php echo $totalPinned; ?></p>
+        <small>Pinned</small>
+      </div>
+
+      <div class="stat-card">
+        <h3>🖼</h3>
+        <p><?php echo $totalImages; ?></p>
+        <small>Images</small>
       </div>
 
     </div>
@@ -194,10 +258,24 @@ ORDER BY data_created DESC";
 
     ?>
   </div>
+  <?php
+  ?>
   <script>
+    // CHECK DARK MODE WHEN PAGE LOADS
+    if (localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark-mode");
+    }
+
     function toggleDarkMode() {
 
       document.body.classList.toggle("dark-mode");
+
+      // SAVE MODE
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+      } else {
+        localStorage.setItem("darkMode", "disabled");
+      }
 
     }
 

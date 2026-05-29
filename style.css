@@ -259,3 +259,55 @@ body.dark-mode input[type="file"]{
 .favorite-active:hover{
     background: #ffcdd2 !important;
 }
+/* DASHBOARD STATS */
+
+.stats{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card{
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+}
+
+.stat-card h3{
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.stat-card p{
+    font-size: 24px;
+    font-weight: bold;
+    color: #1877f2;
+}
+
+.stat-card small{
+    color: gray;
+}
+
+/* DARK MODE */
+
+body.dark-mode .stat-card{
+    background: #1e1e1e;
+}
+
+body.dark-mode .stat-card p,
+body.dark-mode .stat-card small{
+    color: white;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 768px){
+
+    .stats{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
